@@ -63,3 +63,9 @@ O modo rápido reproduz o modelo público observado em https://simuladorhabitaca
 
 Subsídio é uma estimativa adicional, editável, aplicada à entrada, sem alterar a prestação da reprodução rápida. Base: arts. 53–54 da IN 48 compilada em 16/12/2025 (link na interface), limitada ao cenário de apartamento em construção em São Paulo, área coberta de 43 m² e hipótese de cotista no modo rápido. Acima de renda 4000, preço 275000 ou na Classe Média, a estimativa automática começa em zero; depende de validação e atualização pelo banco. Família unipessoal aplica redutor de 70%. Editar o valor desliga a atualização automática, que pode ser reativada. O modo personalizado recebe data de nascimento e início previsto, substituindo a idade digitada. As referências normativas não asseguram elegibilidade ou concessão.
 
+
+## Banner e apresentação dos valores
+
+Galeria inicial com cinco imagens conceituais geradas por IA: sala, cozinha, quarto, fachada e entrada. Navegação por miniaturas e setas. Não representa um projeto executivo ou decorado construído.
+
+O gráfico da entrada mostra uma janela de 12 meses e avança um mês por clique. Os valores aparecem junto aos pontos; em telas estreitas a área do gráfico tem rolagem horizontal para preservar a leitura. Foram retirados os avisos e realces de orçamento. Campos monetários aceitam formato brasileiro e exibem R$ e centavos ao sair do campo. Datas usam o seletor nativo ao clicar no campo, quando suportado pelo navegador.
