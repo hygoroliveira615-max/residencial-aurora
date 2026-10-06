@@ -17,7 +17,7 @@ R$ 12.206/m²: média de anúncios residenciais de São Paulo em setembro/2026, 
 
 Fórmula fictícia: arredondar(área × 12.206 × (1 + 0,005 × (andar − 1))). Sem prêmio adicional de sacada. Primeiro andar: 47 m² por R$ 573.682 e 43 m² por R$ 524.858. O último andar usa +4,5%.
 
-28 unidades disponíveis, 6 reservadas e 6 vendidas são dados simulados. A calculadora apenas divide o saldo em 36 parcelas, sem juros/correção; não envia propostas nem integra CRM.
+28 unidades disponíveis, 6 reservadas e 6 vendidas são dados simulados. O simulador estima financiamento MCMV e organiza a entrada; não envia propostas nem integra CRM.
 
 ## Testar e substituir
 
@@ -45,7 +45,12 @@ Se WebGL não estiver disponível, a tabela e as plantas continuam acessíveis. 
 As janelas das 40 unidades acompanham o status em tempo real: Disponível usa material emissivo quente; Reservado e Vendido usam vidro apagado. Alterações individuais, importação CSV e restauração atualizam todas as janelas da unidade, incluindo as laterais. O contorno azul é apenas seleção e não muda a iluminação.
 
 
-## Demonstração online
+## Financiamento e entrada
 
-https://residencial-aurora-demo-hygor.chocolatemarrom.chatgpt.site/
+Selecione uma unidade e clique em “Simular financiamento e entrada”. O cálculo independente considera renda, compromissos, idade no início do financiamento, prazo, SAC/Price, cota, reserva de seguros, FGTS e subsídio confirmado. Regras consultadas em 06/10/2026 para imóvel novo/em construção em São Paulo capital, com links oficiais no simulador. Não há conexão com a Caixa, aprovação de crédito, CET, TR futura ou encargos de obra. O subsídio não é concedido automaticamente.
 
+A entrada própria estimada alimenta o planejamento; também é possível informar a entrada da construtora. Ajuste contratação, primeira mensal, chaves, sinal, mensais, extras avulsos/semestrais/anuais e pagamento nas chaves. O calendário mostra saldo a distribuir, excesso e meses acima do orçamento. Correção anual é apenas uma hipótese uniforme; a cobertura da entrada é comparada em valores-base. O planejamento não inclui parcelas do banco simultâneas.
+
+Os dados financeiros ficam na sessão, sem envio ao servidor. Exporte os dois demonstrativos em CSV antes de fechar. Recarregar a página restaura os exemplos.
+
+Arquivos: `dist/finance-core.js` (cálculos), `dist/finance-ui.js` (interface), `dist/finance.css` (layout). Validação automatizada: `node finance-tests.cjs`.
