@@ -1,6 +1,6 @@
 const $=s=>document.querySelector(s), money=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
 const classes={'Disponível':'available','Reservado':'reserved','Vendido':'sold'},colors={'Disponível':'#bedda8','Reservado':'#e9c886','Vendido':'#a5b3bf'};
-const initial=()=>Array.from({length:40},(_,i)=>{let floor=Math.floor(i/4)+1,end=i%4+1,front=end<=2,area=front?47:43;return {unidade:String(floor*100+end),andar:floor,posicao:front?'Frente':'Fundos',area,sacada:front,preco:Math.round(area*12206*(1+.005*(floor-1))),status:i%7===0?'Vendido':i%6===0?'Reservado':'Disponível'};});
+const initial=()=>Array.from({length:40},(_,i)=>{let floor=Math.floor(i/4)+1,end=i%4+1,front=end<=2,area=front?47:43;return {unidade:String(floor*100+end),andar:floor,posicao:front?'Frente':'Fundos',area,sacada:front,preco:200000+30000*(floor-1)+(front?30000:0),status:i%7===0?'Vendido':i%6===0?'Reservado':'Disponível'};});
 let units=initial(),selected='701',view='model',angle=-Math.PI/6,faces=[];
 function matches(u){return ($('#statusFilter').value==='all'||u.status===$('#statusFilter').value)&&($('#typeFilter').value==='all'||(u.sacada?'front':'rear')===$('#typeFilter').value)}
 function toast(text){$('#toast').textContent=text;$('#toast').style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$('#toast').style.display='none',3500)}

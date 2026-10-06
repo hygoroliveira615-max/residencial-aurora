@@ -13,9 +13,9 @@ Use a versão hospedada. Para executar localmente, com Node.js instalado, rode `
 
 ## Preços
 
-R$ 12.206/m²: média de anúncios residenciais de São Paulo em setembro/2026, FipeZAP divulgado em https://myside.com.br/guia-sao-paulo/valor-metro-quadrado-sao-paulo-sp (consulta em 06/10/2026). Não é média exclusiva de lançamentos ou orçamento de construção.
+Preços fictícios de R$ 200 mil a R$ 500 mil para variar as simulações. Fundos: R$ 200 mil no 1º andar, com acréscimo de R$ 30 mil por andar. Frente com sacada: R$ 30 mil a mais que os fundos do mesmo andar. Não representam avaliação de mercado.
 
-Fórmula fictícia: arredondar(área × 12.206 × (1 + 0,005 × (andar − 1))). Sem prêmio adicional de sacada. Primeiro andar: 47 m² por R$ 573.682 e 43 m² por R$ 524.858. O último andar usa +4,5%.
+Fórmula: 200000 + 30000 × (andar − 1) + 30000 se tiver sacada. Unidades equivalentes do mesmo andar têm o mesmo preço. Primeiro andar: fundos R$ 200 mil e frente R$ 230 mil. Décimo: fundos R$ 470 mil e frente R$ 500 mil.
 
 28 unidades disponíveis, 6 reservadas e 6 vendidas são dados simulados. O simulador estima financiamento MCMV e organiza a entrada; não envia propostas nem integra CRM.
 
