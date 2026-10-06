@@ -1,0 +1,362 @@
+[
+  {
+    "unidade": "101",
+    "andar": 1,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 573682,
+    "status": "Vendido"
+  },
+  {
+    "unidade": "102",
+    "andar": 1,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 573682,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "103",
+    "andar": 1,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 524858,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "104",
+    "andar": 1,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 524858,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "201",
+    "andar": 2,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 576550,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "202",
+    "andar": 2,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 576550,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "203",
+    "andar": 2,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 527482,
+    "status": "Reservado"
+  },
+  {
+    "unidade": "204",
+    "andar": 2,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 527482,
+    "status": "Vendido"
+  },
+  {
+    "unidade": "301",
+    "andar": 3,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 579419,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "302",
+    "andar": 3,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 579419,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "303",
+    "andar": 3,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 530107,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "304",
+    "andar": 3,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 530107,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "401",
+    "andar": 4,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 582287,
+    "status": "Reservado"
+  },
+  {
+    "unidade": "402",
+    "andar": 4,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 582287,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "403",
+    "andar": 4,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 532731,
+    "status": "Vendido"
+  },
+  {
+    "unidade": "404",
+    "andar": 4,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 532731,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "501",
+    "andar": 5,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 585156,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "502",
+    "andar": 5,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 585156,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "503",
+    "andar": 5,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 535355,
+    "status": "Reservado"
+  },
+  {
+    "unidade": "504",
+    "andar": 5,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 535355,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "601",
+    "andar": 6,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 588024,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "602",
+    "andar": 6,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 588024,
+    "status": "Vendido"
+  },
+  {
+    "unidade": "603",
+    "andar": 6,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 537979,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "604",
+    "andar": 6,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 537979,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "701",
+    "andar": 7,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 590892,
+    "status": "Reservado"
+  },
+  {
+    "unidade": "702",
+    "andar": 7,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 590892,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "703",
+    "andar": 7,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 540604,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "704",
+    "andar": 7,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 540604,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "801",
+    "andar": 8,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 593761,
+    "status": "Vendido"
+  },
+  {
+    "unidade": "802",
+    "andar": 8,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 593761,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "803",
+    "andar": 8,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 543228,
+    "status": "Reservado"
+  },
+  {
+    "unidade": "804",
+    "andar": 8,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 543228,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "901",
+    "andar": 9,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 596629,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "902",
+    "andar": 9,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 596629,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "903",
+    "andar": 9,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 545852,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "904",
+    "andar": 9,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 545852,
+    "status": "Vendido"
+  },
+  {
+    "unidade": "1001",
+    "andar": 10,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 599498,
+    "status": "Reservado"
+  },
+  {
+    "unidade": "1002",
+    "andar": 10,
+    "posicao": "Frente",
+    "area": 47,
+    "sacada": true,
+    "preco": 599498,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "1003",
+    "andar": 10,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 548477,
+    "status": "Disponível"
+  },
+  {
+    "unidade": "1004",
+    "andar": 10,
+    "posicao": "Fundos",
+    "area": 43,
+    "sacada": false,
+    "preco": 548477,
+    "status": "Disponível"
+  }
+]
