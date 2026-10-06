@@ -47,10 +47,19 @@ As janelas das 40 unidades acompanham o status em tempo real: Disponível usa ma
 
 ## Financiamento e entrada
 
-Selecione uma unidade e clique em “Simular financiamento e entrada”. O cálculo independente considera renda, compromissos, idade no início do financiamento, prazo, SAC/Price, cota, reserva de seguros, FGTS e subsídio confirmado. Regras consultadas em 06/10/2026 para imóvel novo/em construção em São Paulo capital, com links oficiais no simulador. Não há conexão com a Caixa, aprovação de crédito, CET, TR futura ou encargos de obra. O subsídio não é concedido automaticamente.
+Selecione uma unidade e clique em “Simular financiamento e entrada”. O cálculo independente considera renda, compromissos, idade no início do financiamento, prazo, SAC/Price, cota, reserva de seguros, FGTS e subsídio confirmado. Regras consultadas em 06/10/2026 para imóvel novo/em construção em São Paulo capital, com links oficiais no simulador. Não há conexão com a Caixa, aprovação de crédito, CET, TR futura ou encargos de obra. O subsídio estimado não é uma concessão do benefício.
 
 A entrada própria estimada alimenta o planejamento; também é possível informar a entrada da construtora. Ajuste contratação, primeira mensal, chaves, sinal, mensais, extras avulsos/semestrais/anuais e pagamento nas chaves. O calendário mostra saldo a distribuir, excesso e meses acima do orçamento. Correção anual é apenas uma hipótese uniforme; a cobertura da entrada é comparada em valores-base. O planejamento não inclui parcelas do banco simultâneas.
 
 Os dados financeiros ficam na sessão, sem envio ao servidor. Exporte os dois demonstrativos em CSV antes de fechar. Recarregar a página restaura os exemplos.
 
 Arquivos: `dist/finance-core.js` (cálculos), `dist/finance-ui.js` (interface), `dist/finance.css` (layout). Validação automatizada: `node finance-tests.cjs`.
+
+## Atualização: comparação Caixa e planejamento na página
+
+A simulação abre na própria página e acompanha a unidade selecionada, preservando os campos pessoais e o planejamento. “Editar unidade de teste” aparece antes do botão de financiamento. O gráfico de desembolsos previstos mostra seis meses e permite avançar/voltar; inclui sinal, mensais, extras, chaves e correção. Não registra pagamentos efetivos.
+
+O modo rápido reproduz o modelo público observado em https://simuladorhabitacao.caixa.gov.br/calculadora em 06/10/2026. Usa nascimento, renda, preço, taxa efetiva e seguros por idade. Referências verificadas: renda 500, imóvel 500000, nascimento fictício 01/01/1997 → financiamento 14246,13, entrada 485753,87, parcela 150; renda 5000, imóvel 590892, nascimento 01/01/1991 → financiamento 167722,06 e parcela 1500. Esse modo usa tarifa de 25, MIP e DFI com os parâmetros públicos. Na redução por renda, reproduz o DFI sobre a base de referência reduzida. Não integra API e não substitui a simulação completa.
+
+Subsídio é uma estimativa adicional, editável, aplicada à entrada, sem alterar a prestação da reprodução rápida. Base: arts. 53–54 da IN 48 compilada em 16/12/2025 (link na interface), limitada ao cenário de apartamento em construção em São Paulo, área coberta de 43 m² e hipótese de cotista no modo rápido. Acima de renda 4000, preço 275000 ou na Classe Média, a estimativa automática começa em zero; depende de validação e atualização pelo banco. Família unipessoal aplica redutor de 70%. Editar o valor desliga a atualização automática, que pode ser reativada. O modo personalizado recebe data de nascimento e início previsto, substituindo a idade digitada. As referências normativas não asseguram elegibilidade ou concessão.
+

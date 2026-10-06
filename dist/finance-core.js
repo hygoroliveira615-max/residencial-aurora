@@ -41,6 +41,40 @@ function planning(p){
  const gap=round(p.target-baseTotal),count=end-start+1,extraNeeded=Math.max(0,gap)/count;
  return {rows,count,baseTotal:round(baseTotal),total:round(total),gap,monthlySuggestion:round(p.monthly+extraNeeded),over:rows.filter(r=>r.over).length,correction:round(total-baseTotal)};
 }
-const api={financing,planning,band,rate,monthIndex,monthString};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AuroraFinance=api;
+
+// Independent implementation of the public quick-calculator model observed 2026-10-06.
+// Source: simuladorhabitacao.caixa.gov.br/calculadora, public assets main.c5c18bbf9130785e.js and 237.a68d02937ce3c97f.js.
+const quickBands=[[2160,210000,.048548],[2850,210000,.051162],[3200,210000,.053782],[3500,210000,.056408],[4000,210000,.061678],[5000,210000,.07229],[9600,400000,.084722],[13000,600000,.1047],[77500,2250000,.1149],[Infinity,Infinity,.134]];
+function quickFinancing(p){
+ number(p.price,100,1e8,'Preço');number(p.income,100,1e6,'Renda');
+ const date=p.asOf||new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Sao_Paulo'}).format(new Date());
+ function parts(s){if(!/^\d{4}-\d{2}-\d{2}$/.test(s))throw Error('Informe uma data de nascimento válida.');const a=s.split('-').map(Number),d=new Date(Date.UTC(a[0],a[1]-1,a[2]));if(d.getUTCFullYear()!==a[0]||d.getUTCMonth()!==a[1]-1||d.getUTCDate()!==a[2])throw Error('Data inválida.');return a;}
+ const [y,m,d]=parts(date),[by,bm,bd]=parts(p.birth),ageMonths=(y-by)*12+m-bm-(d<bd?1:0),age=Math.floor(ageMonths/12);
+ if(age<18||ageMonths>=966)throw Error('Informe uma idade entre 18 anos e menos de 80 anos e 6 meses.');
+ const months=Math.min(420,966-ageMonths),incomeBand=quickBands.findIndex(b=>p.income<=b[0]),priceBand=quickBands.findIndex(b=>p.price<=b[1]),index=Math.max(incomeBand,priceBand),effective=quickBands[index][2],i=Math.pow(1+effective,1/12)-1,system=effective>=.1092?'SAC':'PRICE';
+ const mipPercent=age<=25?.0093:age<=30?.0096:age<=35?.0116:age<=40?.0154:age<=45?.0252:age<=50?.0386:age<=55?.0676:age<=60?.1533:age<=65?.2731:age<=70?.3259:age<=75?.4894:.5312;
+ const factor=system==='SAC'?1/months+i:i/(1-Math.pow(1+i,-months)),budget=p.income*.3;
+ // The public quick calculator reduces a reference property value along with the loan;
+ // its DFI uses this reduced reference, not the originally entered property price.
+ const evaluate=reference=>{const principal=reference*.8,mip=principal*mipPercent/100,dfi=reference*.0066/100,costs=25+mip+dfi;return {principal,mip,dfi,costs,first:principal*factor+costs,reference};};
+ let result=evaluate(p.price);
+ if(result.first>budget){let low=0,high=p.price,best=0;for(let n=0;n<30;n++){const mid=(low+high)/2;if(evaluate(mid).first<=budget){best=mid;low=mid;}else high=mid;}result=evaluate(best);}
+ if(result.principal<=0)return {valid:false,errors:['Renda sem margem para financiamento neste modelo.'],warnings:[]};
+ let balance=result.principal;const rows=[];for(let n=1;n<=months;n++){const interest=balance*i,amort=n===months?balance:system==='SAC'?result.principal/months:result.principal*factor-interest;balance=Math.max(0,balance-amort);rows.push({month:n,principal:round(amort),interest:round(interest),payment:round(amort+interest+result.costs),balance:round(balance)});}
+ return {valid:true,quick:true,errors:[],warnings:[],classe:index===7,faixa:index<=2?1:index<=5?2:index===6?3:4,label:index>=8?'CRÉDITO HABITACIONAL · ESTIMATIVA':'MCMV · SIMULAÇÃO RÁPIDA',price:p.price,system,months,annual:round(effective*100),effective,age,principal:round(result.principal),cash:round(p.price-result.principal),first:rows[0].payment,last:rows.at(-1).payment,rows,total:round(rows.reduce((a,r)=>a+r.payment,0)),costs:round(result.costs),tac:25,mip:round(result.mip),dfi:round(result.dfi),reference:round(result.reference),expenses:round(p.price*.05),budget:round(budget)};
+}
+
+
+function ageAt(birth,at){const b=new Date(birth+'T00:00:00Z'),d=new Date(at+'T00:00:00Z');if(!Number.isFinite(+b)||!Number.isFinite(+d)||b.toISOString().slice(0,10)!==birth)throw Error('Data de nascimento inválida.');const m=(d.getUTCFullYear()-b.getUTCFullYear())*12+d.getUTCMonth()-b.getUTCMonth()-(d.getUTCDate()<b.getUTCDate()?1:0);return m/12;}
+function subsidyEstimate(p){
+ if(!Number.isFinite(p.income)||p.income<=0||!Number.isFinite(p.price)||p.price<=0)return {value:0,reason:'Preencha renda e preço.'};
+ if(p.price>275000||p.classe||p.hasProperty)return {value:0,reason:'Sem subsídio estimado: imóvel/linha fora do cenário de habitação popular adotado.'};
+ if(p.income>4000)return {value:0,reason:'Estimativa automática indisponível acima de R$ 4.000 nesta referência normativa; informe o valor validado pelo banco.'};
+ const r=Math.min(3700,Math.max(1750,p.income)),b=2*(1900-50000)/1950,a=-b/(2*1950),fr=a*(r-1750)**2+b*(r-1750)+50000,j=rate(p.income,p.cotista)/1200;
+ const demand=.25*p.income*(1-Math.pow(1+j,-420))/j,vvi=Math.min(p.price,275000*.675),fd=Math.max(-10,Math.min(10,30-40*demand/vvi)),fu=Math.max(0,Math.min(10,10*((p.area||43)-39)/20));
+ let value=Math.min(55000,fr*(1+(2.07+fd+fu)/100)*1.2);if(value<1500)value=0;if(p.single)value*=.3;
+ return {value:round(Math.min(p.price,value)),reason:'Aproximação para apartamento em construção em São Paulo, com área coberta de 43 m²; depende de enquadramento e validação do banco.'};
+}
+const api={financing,quickFinancing,subsidyEstimate,ageAt,planning,band,rate,monthIndex,monthString};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AuroraFinance=api;
 })(typeof window==='undefined'?globalThis:window);
 

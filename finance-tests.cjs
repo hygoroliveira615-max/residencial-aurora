@@ -9,3 +9,15 @@ r=F.planning(plan);assert.equal(r.count,24);assert.equal(r.baseTotal,93000);asse
 assert.equal(F.planning({...plan,start:'2028-10'}).count,1);assert.throws(()=>F.planning({...plan,start:'2026-09'}));assert.throws(()=>F.planning({...plan,end:'2026-09'}));assert.throws(()=>F.planning({...plan,extras:[{date:'2028-11',amount:1,every:0}]}));assert(F.planning({...plan,monthly:5000}).gap<0);r=F.planning({...plan,correction:6});assert.equal(r.gap,7000);assert(r.total>r.baseTotal);assert.equal(r.rows[0].correction,0);assert.equal(F.planning({...plan,extras:[{date:'2027-04',amount:1000,every:6}]}).rows.filter(r=>r.extras>0).length,4);
 console.log('PASS: SAC/Price, limites de renda/preço/idade/cota, FGTS/subsídio, faixa de renda, contagem de vencimentos, extras recorrentes, saldo, excesso e correção.');
 assert.equal(F.financing({...p,fgts:p.price}).valid,false);
+// Reference fixtures verified against Caixa quick calculator on 2026-10-06.
+const quick={income:500,price:500000,birth:'1997-01-01',asOf:'2026-10-06'};
+r=F.quickFinancing(quick);assert.equal(r.principal,14246.13);assert.equal(r.cash,485753.87);assert.equal(r.first,150);assert.equal(r.system,'PRICE');assert.equal(r.annual,10.47);assert.equal(r.expenses,25000);
+r=F.quickFinancing({...quick,income:5000,price:590892,birth:'1991-01-01'});assert.equal(r.principal,167722.06);assert.equal(r.cash,423169.94);assert.equal(r.first,1500);
+r=F.quickFinancing({...quick,income:13000,price:210000});assert.equal(r.principal,168000);assert(r.first<3900);assert.equal(r.rows.at(-1).balance,0);
+r=F.quickFinancing({...quick,income:14000,price:700000});assert.equal(r.system,'SAC');assert(r.first>r.last);assert.equal(r.rows.at(-1).balance,0);
+assert.equal(F.quickFinancing({...quick,birth:'1951-10-06'}).months,66);assert.throws(()=>F.quickFinancing({...quick,birth:'2020-10-06'}));assert.throws(()=>F.quickFinancing({...quick,birth:'1997-02-31'}));
+console.log('PASS: quick calculator official fixtures, quota, term by birthday, SAC, invalid birth dates.');
+assert.equal(F.ageAt('1991-10-07','2026-10-06'),419/12);assert.throws(()=>F.ageAt('1997-02-31','2026-10-06'));
+const sub={income:3000,price:210000,cotista:true,single:false,area:43};
+assert.equal(F.subsidyEstimate(sub).value,9816.1);assert.equal(F.subsidyEstimate({...sub,single:true}).value,2944.83);assert.equal(F.subsidyEstimate({...sub,price:500000}).value,0);assert.equal(F.subsidyEstimate({...sub,income:5000}).value,0);assert.equal(F.subsidyEstimate({...sub,classe:true}).value,0);assert(F.subsidyEstimate({...sub,income:1750}).value<=55000);
+console.log('PASS: birth-date age and scoped subsidy estimate with family reduction.');
