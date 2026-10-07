@@ -5,5 +5,4 @@ const validate=el=>{const v=parse(el.value),min=Number(el.dataset.min||0),max=Nu
 const refresh=()=>document.querySelectorAll('[data-money]').forEach(el=>{if(document.activeElement===el)return;const v=/^\d+(\.\d+)?$/.test(el.value)&&!el.value.includes('R$')?Number(el.value):parse(el.value);if(Number.isFinite(v))el.value=format(v);validate(el);});
 document.addEventListener('input',e=>{if(e.target.matches('[data-money]'))validate(e.target);},true);
 document.addEventListener('focusout',e=>{if(e.target.matches('[data-money]')){const v=parse(e.target.value);if(Number.isFinite(v))e.target.value=format(v);validate(e.target);}},true);
-document.addEventListener('click',e=>{const el=e.target.closest('input[type=date],input[type=month]');if(el&&!el.disabled&&typeof el.showPicker==='function'){try{el.showPicker();}catch{}}});
 window.AuroraMoney={parse,format,refresh};})();
