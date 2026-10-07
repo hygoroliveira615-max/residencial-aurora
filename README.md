@@ -69,3 +69,5 @@ Subsídio é uma estimativa adicional, editável, aplicada à entrada, sem alter
 Galeria inicial com cinco imagens conceituais geradas por IA: sala, cozinha, quarto, fachada e entrada. Navegação por miniaturas e setas. Não representa um projeto executivo ou decorado construído.
 
 O gráfico da entrada mostra uma janela de 12 meses e avança um mês por clique. Os valores aparecem junto aos pontos; em telas estreitas a área do gráfico tem rolagem horizontal para preservar a leitura. Foram retirados os avisos e realces de orçamento. Campos monetários aceitam formato brasileiro e exibem R$ e centavos ao sair do campo. Datas usam o seletor nativo ao clicar no campo, quando suportado pelo navegador.
+
+A opção abaixo da mensal ativa o cálculo automático do saldo após sinal, extras e chaves. Recalcula ao alterar entrada, datas e pagamentos, ajustando centavos na última mensal. Extras que já excedem a entrada resultam em mensal zero e aviso de excesso. Desativada, a mensal fica editável e mantém o valor atual.

@@ -1,6 +1,6 @@
 (function(root){
 'use strict';
-const round=n=>Math.round((n+Number.EPSILON)*100)/100;
+const round=n=>Math.round((n+Number.EPSILON)*100)/100||0;
 function number(v,min,max,name){if(!Number.isFinite(v)||v<min||v>max)throw Error(`${name}: informe um valor entre ${min} e ${max}.`);return v;}
 function band(income){return income<=3200?1:income<=5000?2:income<=9600?3:income<=13000?4:0;}
 function rate(income,cotista){const v=income<=2160?4.25:income<=2850?4.5:income<=3200?4.75:income<=3500?5:income<=4000?5.5:income<=5000?6.5:7.66;return round(v+(cotista?0:.5));}
@@ -36,10 +36,11 @@ function planning(p){
  if(end-contract>120)throw Error('O planejamento aceita até 120 meses entre contratação e chaves.');
  const rows=Array.from({length:end-contract+1},(_,i)=>({date:monthString(contract+i),signal:i===0?p.signal:0,monthly:contract+i>=start?p.monthly:0,extras:0,keys:contract+i===end?p.keys:0}));
  for(const extra of p.extras){number(extra.amount,0,1e8,'Pagamento extra');const begin=monthIndex(extra.date),every=Number(extra.every);if(![0,6,12].includes(every))throw Error('Periodicidade inválida.');if(begin<contract||begin>end)throw Error('Pagamento extra fora do período da contratação até as chaves.');for(let m=begin;m<=end;m+=every||121){rows[m-contract].extras+=extra.amount;if(!every)break;}}
+ if(p.autoMonthly){const count=end-start+1,other=rows.reduce((sum,r)=>sum+Math.round((r.signal+r.extras+r.keys)*100),0),remaining=Math.max(0,Math.round(p.target*100)-other),cents=Math.floor(remaining/count);for(let i=start-contract;i<rows.length;i++)rows[i].monthly=cents/100;rows.at(-1).monthly=round(rows.at(-1).monthly+(remaining-cents*count)/100);}
  let total=0,baseTotal=0;for(let i=0;i<rows.length;i++){const r=rows[i],factor=Math.pow(1+p.correction/100,i/12);r.base=round(r.signal+r.monthly+r.extras+r.keys);r.total=round(r.base*factor);r.correction=round(r.total-r.base);r.over=r.total>p.capacity+.005;r.cumulative=round(total+=r.total);baseTotal+=r.base;}
  // Coverage is calculated in contract-month reais; correction applies equally to target and installments.
  const gap=round(p.target-baseTotal),count=end-start+1,extraNeeded=Math.max(0,gap)/count;
- return {rows,count,baseTotal:round(baseTotal),total:round(total),gap,monthlySuggestion:round(p.monthly+extraNeeded),over:rows.filter(r=>r.over).length,correction:round(total-baseTotal)};
+ return {rows,count,monthly:rows[start-contract].monthly,lastMonthly:rows.at(-1).monthly,baseTotal:round(baseTotal),total:round(total),gap,monthlySuggestion:round(p.monthly+extraNeeded),over:rows.filter(r=>r.over).length,correction:round(total-baseTotal)};
 }
 
 // Independent implementation of the public quick-calculator model observed 2026-10-06.
@@ -77,4 +78,5 @@ function subsidyEstimate(p){
 }
 const api={financing,quickFinancing,subsidyEstimate,ageAt,planning,band,rate,monthIndex,monthString};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.AuroraFinance=api;
 })(typeof window==='undefined'?globalThis:window);
+
 
